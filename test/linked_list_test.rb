@@ -26,7 +26,12 @@ class LinkedListTest < Minitest::Test
     list = LinkedList.new
     node_1 = Node.new("tyler")
     node_2 = Node.new("john")
+    node_3 = Node.new("chad")
     list.append(node_1)
     list.append(node_2)
+    list.append(node_3)
+    assert_equal "tyler", list.append("tyler")
+    assert_equal "john", list.append("john")
+    assert_equal "chad", list.append("chad")
   end
 end

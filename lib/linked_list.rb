@@ -12,8 +12,11 @@ class LinkedList
     if head == nil
       head = node
     elsif
-      head.next_node == nil
+      tail.next_node == nil
       tail = next_node
+    else
+      tail = node
+    end
   end
 
 end
