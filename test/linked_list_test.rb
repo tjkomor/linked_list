@@ -177,14 +177,47 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_it_can_remove_node_by_index
-    skip
     list = LinkedList.new
     list.append('john')
     list.append('tyler')
     list.append('joe')
     list.append('roger')
-    assert_equal 'john', list.remove_by_index(2)
+    assert_equal 'john', list.head_data
+    assert_equal 'joe', list.remove_by_index(2)
+    assert_equal 3, list.list_size
+  end
 
+  def test_it_can_remove_by_value
+    list = LinkedList.new
+    list.append('john')
+    list.append('tyler')
+    list.append('tyler')
+    list.append('joe')
+    list.append('roger')
+    list.prepend('will')
+    assert_equal 'tyler', list.remove_by_value('tyler')
+    assert_equal 'joe', list.find_data_by_index(4)
+    assert_equal 5, list.list_size
+  end
+
+  def test_it_can_return_message_if_data_doesnt_exist
+    skip
+    list = LinkedList.new
+    list.append('john')
+    list.append('tyler')
+    list.append('tyler')
+    list.append('joe')
+    assert_equal "data doesn't exist", list.remove_by_value("lou")
+  end
+
+  def test_it_can_find_the_distance_between_two_nodes
+    list = LinkedList.new
+    list.append('john')
+    list.append('pete')
+    list.append('tyler')
+    list.append('joe')
+    assert_equal 3, list.distance('john', 'joe')
+    assert_equal 1, list.distance('tyler', 'joe')
   end
 
 end
