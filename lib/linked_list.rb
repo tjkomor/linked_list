@@ -46,7 +46,6 @@ class LinkedList
     counter
   end
 
-
   def include?(key)
     current = @head
     until (current.data == key) || (current.next_node.nil?)
@@ -76,40 +75,25 @@ class LinkedList
   def insert(data, position)
     counter = 0
     current = @head
-    until counter == position
-      previous = current
-      current = current.next_node
-      counter += 1
+    if current.next_node.nil? || counter < position
+      append(data)
+    else
+      until counter == position
+        previous = current
+        current = current.next_node
+        counter += 1
+      end
+      new_node = Node.new(data)
+      previous.next_node = new_node
+      new_node.next_node = current
     end
-    new_node = Node.new(data)
-    previous.next_node = new_node
-    new_node.next_node = current
+  end
+
+  def find_by_index(index)
+    
+
   end
 
 
 
-
-
-  # def include?(key)
-  #   current = @head
-  #   while current.data != key && cure
-  #     current = current.next_node
-  #     counter += 1
-  #     if current == nil
-  #       false
-  #     else
-  #       answer = true
-  #       require 'pry'; binding.pry
-  #     end
-  #   end
-  #   answer
-  # end
-
-
-
 end
-
-list = LinkedList.new
-list.append('tyler')
-list.append("john")
-list.append('charles')
