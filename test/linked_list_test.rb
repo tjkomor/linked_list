@@ -139,9 +139,52 @@ class LinkedListTest < Minitest::Test
     list = LinkedList.new
     list.append('john')
     list.append('tyler')
+    list.append('joe')
+    list.prepend('phil')
+    assert_equal 'tyler', list.find_data_by_index(3)
+    assert_equal 'phil', list.find_data_by_index(1)
+  end
+
+  def test_it_will_return_messsage_if_index_doesnt_exist
+    skip
+    list = LinkedList.new
+    list.append('john')
+    list.append('tyler')
+    list.append('joe')
+    assert_equal "index does not exist", list.find_by_index(5)
     assert_equal 'tyler', list.find_by_index(2)
   end
 
+  def test_it_can_find_node_by_value
+    list = LinkedList.new
+    list.append('john')
+    list.append('tyler')
+    list.append('joe')
+    list.append('roger')
+    assert_equal 4, list.find_by_value('roger')
+    assert_equal 2, list.find_by_value('tyler')
+  end
 
+  def test_value_count_returns_correct_value
+    skip
+    list = LinkedList.new
+    list.append('john')
+    list.append('tyler')
+    list.append('joe')
+    list.append('roger')
+    list.find_by_value('tyler')
+    assert_equal "value not in list", list.value_count
+  end
+
+  def test_it_can_remove_node_by_index
+    skip
+    list = LinkedList.new
+    list.append('john')
+    list.append('tyler')
+    list.append('joe')
+    list.append('roger')
+    assert_equal 'john', list.remove_by_index(2)
+
+  end
 
 end

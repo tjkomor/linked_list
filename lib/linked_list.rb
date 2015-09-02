@@ -89,10 +89,35 @@ class LinkedList
     end
   end
 
-  def find_by_index(index)
-    
-
+  def find_object_by_index(index)
+    counter = 0
+    current = @head
+    until counter == index
+      current = current.next_node
+      counter += 1
+    end
+    current
   end
+
+  def find_data_by_index(index)
+    find_object_by_index(index).data
+  end
+
+  def find_by_value(value)
+    counter = 0
+    current = @head
+    until current.data == value
+      current = current.next_node
+      counter += 1
+    end
+    counter
+  end
+
+  def remove_by_index(index)
+    find_object_by_index(index)
+  end
+
+
 
 
 
