@@ -1,37 +1,75 @@
-gem 'minitest', '~> 5.2'
+gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/linked_list'
+require './lib/node'
 
 
 class LinkedListTest < Minitest::Test
 
-  def test_head_is_nil
+  def test_head_data_is_head_next_node_data
     list = LinkedList.new
-    assert_equal nil, list.head
+    list.append("tyler")
+    assert_equal "tyler", list.head_data
   end
 
-  def test_tail_is_nil
+  def test_it_can_accept_multiple_nodes
     list = LinkedList.new
-    assert_equal nil, list.tail
+    list.append('tyler')
+    list.append('jeff')
+    list.append('rob')
+    assert_equal 'tyler', list.head_data
+    assert_equal 'rob', list.tail_data
   end
 
-  def test_it_can_append_first_node_as_head
+  def test_it_can_append_node_when_empty
     list = LinkedList.new
-    assert_equal "tyler", list.append("tyler")
-    assert_equal "john", list.append("john")
+    list.append('tyler')
+    assert_equal 'tyler', list.tail_data
   end
 
-  def test_it_can_append_node_when_head_already_exists
+  def test_to_append_node_to_existing_list
     list = LinkedList.new
-    node_1 = Node.new("tyler")
-    node_2 = Node.new("john")
-    node_3 = Node.new("chad")
-    list.append(node_1)
-    list.append(node_2)
-    list.append(node_3)
-    assert_equal "tyler", list.append("tyler")
-    assert_equal "john", list.append("john")
-    assert_equal "chad", list.append("chad")
+    list.append('tyler')
+    list.append('jeff')
+    assert_equal 'jeff', list.tail_data
   end
+
+
+  def test_it_can_prepend_node
+    list = LinkedList.new
+    list.append("tyler")
+    list.append("jeff")
+    list.append("marlo")
+    list.prepend("john")
+    assert_equal "john", list.head_data
+    assert_equal "marlo", list.tail_data
+  end
+
+  def test_it_can_find_the_tail_data
+    list = LinkedList.new
+    list.append('pete')
+    list.append("tyler")
+    list.append("austin")
+    list.append("nuk")
+    assert_equal "nuk", list.tail_data
+  end
+
+  def test_it_can_find_list_size
+    list = LinkedList.new
+    list.append("tyler")
+    list.append("john")
+    assert_equal 2, list.list_size
+  end
+
+  def test_it_can_find_data_in_a_list
+    list = LinkedList.new
+    list.append('tyler')
+    list.append("john")
+    list.append('charles')
+    assert_equal true, list.include?('tyle')
+  end
+
+
+
 end
