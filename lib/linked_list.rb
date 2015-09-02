@@ -1,4 +1,4 @@
-require './lib/node'  # ~> LoadError: cannot load such file -- ./lib/node
+require './lib/node'
 
 class LinkedList
 
@@ -46,28 +46,70 @@ class LinkedList
     counter
   end
 
+
   def include?(key)
     current = @head
-    until current.data == key
+    until (current.data == key) || (current.next_node.nil?)
+      current = current.next_node
+    end
+    current.data == key
+  end
+
+  def second_to_last
+    current = @head
+    until current.next_node.next_node.nil?
+      current = current.next_node
+    end
+    current
+  end
+
+  def pop
+    if list_size == 0
+      "the list is empty"
+    else
+      previous = second_to_last.next_node
+      second_to_last.next_node = nil
+      previous.data
+    end
+  end
+
+  def insert(data, position)
+    counter = 0
+    current = @head
+    until counter == position
+      previous = current
       current = current.next_node
       counter += 1
-      if current == nil
-        false
-      else
-        answer = true
-        require 'pry'; binding.pry
-      end
     end
-    answer
+    new_node = Node.new(data)
+    previous.next_node = new_node
+    new_node.next_node = current
   end
+
+
+
+
+
+  # def include?(key)
+  #   current = @head
+  #   while current.data != key && cure
+  #     current = current.next_node
+  #     counter += 1
+  #     if current == nil
+  #       false
+  #     else
+  #       answer = true
+  #       require 'pry'; binding.pry
+  #     end
+  #   end
+  #   answer
+  # end
 
 
 
 end
 
-# ~> LoadError
-# ~> cannot load such file -- ./lib/node
-# ~>
-# ~> /Users/tylerkomoroske/.rubies/ruby-2.2.2/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
-# ~> /Users/tylerkomoroske/.rubies/ruby-2.2.2/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
-# ~> /Users/tylerkomoroske/code/projects/linked_lists/lib/linked_list.rb:1:in `<main>'
+list = LinkedList.new
+list.append('tyler')
+list.append("john")
+list.append('charles')
