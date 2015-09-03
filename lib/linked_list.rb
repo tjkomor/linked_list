@@ -1,4 +1,5 @@
 require './lib/node'
+require 'pry'
 
 class LinkedList
 
@@ -6,6 +7,7 @@ class LinkedList
 
   def initialize
     @head = Node.new
+
   end
 
   def head_data
@@ -75,7 +77,7 @@ class LinkedList
   def insert(data, position)
     counter = 0
     current = @head
-    if current.next_node.nil? || counter < position
+    if current.next_node.nil? || list_size < position
       append(data)
     else
       until counter == position
@@ -92,7 +94,7 @@ class LinkedList
   def find_object_by_index(index)
     counter = 0
     current = @head
-    until counter == index
+    until counter == index || counter == list_size
       current = current.next_node
       counter += 1
     end
@@ -106,7 +108,7 @@ class LinkedList
   def find_by_value(value)
     counter = 0
     current = @head
-    until current.data == value
+    until current.data == value || current.next_node.nil?
       current = current.next_node
       counter += 1
     end
@@ -114,52 +116,18 @@ class LinkedList
   end
 
   def remove_by_index(index)
-    remove = find_data_by_index(index)
     previous_node = find_object_by_index(index - 1)
     later_node = find_object_by_index(index + 1)
     previous_node.next_node = later_node
-    previous_node.next_node.data
+    later_node.data
   end
 
   def remove_by_value(value)
-    current = @head
-    counter = 0
-    until current.data == value
-      current = current.next_node
-    end
-      node = current.next_node.next_node
-      current.next_node = node
-      current.data
-  end
-
-  def count_first_node(data)
-    current = @head
-    counter = 0
-      until current.data == data
-        current = current.next_node
-        counter += 1
-      end
-      counter
-  end
-
-  def count_second_node(data)
-    current = @head
-    counter = 0
-      until current.data == data
-        current = current.next_node
-        counter += 1
-      end
-      counter
+    remove_by_index(find_by_value(value))
   end
 
   def distance(data_1, data_2)
-    count_second_node(data_2) - count_first_node(data_1)
+    find_by_value(data_2) - find_by_value(data_1)
   end
-
-
-
-
-
-
 
 end

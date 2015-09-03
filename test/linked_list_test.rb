@@ -116,10 +116,12 @@ class LinkedListTest < Minitest::Test
     list.append('phil')
     list.append('jeff')
     list.append('john')
-    list.insert('jeff', 2)
+    list.insert('tyler', 2)
     assert_equal 4, list.list_size
+    assert_equal 'tyler', list.head.next_node.next_node.data
+    assert_equal 'john', list.tail_data
     assert_equal 'phil', list.head_data
-    assert_equal true, list.include?('jeff')
+    assert_equal true, list.include?('tyler')
   end
 
   def test_it_can_insert_node_into_empty_list
@@ -145,16 +147,6 @@ class LinkedListTest < Minitest::Test
     assert_equal 'phil', list.find_data_by_index(1)
   end
 
-  def test_it_will_return_messsage_if_index_doesnt_exist
-    skip
-    list = LinkedList.new
-    list.append('john')
-    list.append('tyler')
-    list.append('joe')
-    assert_equal "index does not exist", list.find_by_index(5)
-    assert_equal 'tyler', list.find_by_index(2)
-  end
-
   def test_it_can_find_node_by_value
     list = LinkedList.new
     list.append('john')
@@ -165,15 +157,13 @@ class LinkedListTest < Minitest::Test
     assert_equal 2, list.find_by_value('tyler')
   end
 
-  def test_value_count_returns_correct_value
-    skip
+  def test_it_returns_list_size_if_value_doesnt_exist
     list = LinkedList.new
     list.append('john')
     list.append('tyler')
     list.append('joe')
     list.append('roger')
-    list.find_by_value('tyler')
-    assert_equal "value not in list", list.value_count
+    assert_equal 4, list.find_by_value("lou")
   end
 
   def test_it_can_remove_node_by_index
@@ -200,24 +190,16 @@ class LinkedListTest < Minitest::Test
     assert_equal 5, list.list_size
   end
 
-  def test_it_can_return_message_if_data_doesnt_exist
-    skip
-    list = LinkedList.new
-    list.append('john')
-    list.append('tyler')
-    list.append('tyler')
-    list.append('joe')
-    assert_equal "data doesn't exist", list.remove_by_value("lou")
-  end
-
   def test_it_can_find_the_distance_between_two_nodes
     list = LinkedList.new
     list.append('john')
     list.append('pete')
     list.append('tyler')
     list.append('joe')
+    list.prepend("travis")
     assert_equal 3, list.distance('john', 'joe')
     assert_equal 1, list.distance('tyler', 'joe')
+    assert_equal 4, list.distance('travis', 'joe')
   end
 
 end
