@@ -7,7 +7,6 @@ class LinkedList
 
   def initialize
     @head = Node.new
-
   end
 
   def head_data
